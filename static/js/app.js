@@ -338,6 +338,188 @@ document.addEventListener('DOMContentLoaded', () => {
             uprightKeywords: "영구적인 부의 축적, 가문의 번영, 부동산 성공, 평생의 안정",
             reversedKeywords: "상속 분쟁, 가족 간 금전 갈등, 갑작스러운 손실",
             categories: ["재물 / 금전 / 사업", "연애 / 애정운"]
+        },
+
+        // --- 현실적 경고 & 위기 & 시련 카드 20종 추가 ---
+        {
+            id: "S3",
+            name: "검 3",
+            nameEn: "Three of Swords",
+            icon: "💔",
+            uprightKeywords: "심장을 찌르는 상처, 실연과 비통함, 삼각관계의 아픔, 이별 통보",
+            reversedKeywords: "상처의 서서히 아묾, 과거의 용서, 고통 극복, 화해의 조짐",
+            categories: ["연애 / 애정운", "인간관계 / 대인운", "멘탈 / 마음 치유"]
+        },
+        {
+            id: "S5",
+            name: "검 5",
+            nameEn: "Five of Swords",
+            icon: "⚔️",
+            uprightKeywords: "상처뿐인 승리, 자존심 싸움의 파국, 비열한 배신, 적대감과 비난",
+            reversedKeywords: "무의미한 갈등 종결, 화해의 제스처, 손실 인정, 후회",
+            categories: ["인간관계 / 대인운", "취업 / 진로 / 이직", "학업 / 시험 / 합격"]
+        },
+        {
+            id: "S7",
+            name: "검 7",
+            nameEn: "Seven of Swords",
+            icon: "🦊",
+            uprightKeywords: "은밀한 속임수, 거짓말과 사기, 뒤통수치는 배신, 위험한 꼼수",
+            reversedKeywords: "비밀의 탄로, 양심의 가책, 진실의 고백, 사기 피해 모면",
+            categories: ["재물 / 금전 / 사업", "인간관계 / 대인운", "연애 / 애정운"]
+        },
+        {
+            id: "S8",
+            name: "검 8",
+            nameEn: "Eight of Swords",
+            icon: "🕸️",
+            uprightKeywords: "사방이 갇힌 포위망, 진퇴양난, 심리적 감옥, 무력감과 피해의식",
+            reversedKeywords: "스스로 속박 풀기, 새로운 시야, 해결의 실마리 발견, 자유",
+            categories: ["멘탈 / 마음 치유", "취업 / 진로 / 이직", "연애 / 애정운"]
+        },
+        {
+            id: "S9",
+            name: "검 9",
+            nameEn: "Nine of Swords",
+            icon: "😭",
+            uprightKeywords: "한밤중의 악몽, 극심한 불면증과 불안, 자책감, 밤잠을 설치는 고통",
+            reversedKeywords: "절망 속 희망 발견, 공포 극복, 불면증 완화, 타인의 도움",
+            categories: ["멘탈 / 마음 치유", "종합 운세 / 사주", "학업 / 시험 / 합격"]
+        },
+        {
+            id: "S10",
+            name: "검 10",
+            nameEn: "Ten of Swords",
+            icon: "🪦",
+            uprightKeywords: "완전한 파국, 등에 꽂힌 비수, 바닥을 친 절망, 관계의 비참한 종말",
+            reversedKeywords: "최악의 순간 통과, 새로운 여명의 시작, 고통의 끝과 회복",
+            categories: ["종합 운세 / 사주", "연애 / 애정운", "재물 / 금전 / 사업"]
+        },
+        {
+            id: "S-Kn",
+            name: "검의 기사",
+            nameEn: "Knight of Swords",
+            icon: "🌪️",
+            uprightKeywords: "성급한 돌진, 독설과 날 선 공격성, 충동적 분노, 파괴적 언쟁",
+            reversedKeywords: "무모한 실수, 통제 불능의 분노, 패배, 무계획적 실패",
+            categories: ["인간관계 / 대인운", "취업 / 진로 / 이직", "연애 / 애정운"]
+        },
+        {
+            id: "C5",
+            name: "컵 5",
+            nameEn: "Five of Cups",
+            icon: "🥀",
+            uprightKeywords: "엎질러진 잔에 대한 비탄, 뼈아픈 실망, 과거에 대한 미련과 후회",
+            reversedKeywords: "남아있는 희망 자각, 상실감 극복, 새로운 사람과의 만남",
+            categories: ["연애 / 애정운", "멘탈 / 마음 치유", "인간관계 / 대인운"]
+        },
+        {
+            id: "C7",
+            name: "컵 7",
+            nameEn: "Seven of Cups",
+            icon: "🌫️",
+            uprightKeywords: "뜬구름 잡는 망상, 실속 없는 환상, 거짓된 유혹, 현실성 없는 계획",
+            reversedKeywords: "명확한 현실 자각, 환상에서 깨어남, 진정한 목표 선택",
+            categories: ["재물 / 금전 / 사업", "연애 / 애정운", "취업 / 진로 / 이직"]
+        },
+        {
+            id: "C8",
+            name: "컵 8",
+            nameEn: "Eight of Cups",
+            icon: "🌑",
+            uprightKeywords: "지친 마음으로 뒤돌아섬, 미련 없는 관계 정리, 실망 후의 떠남",
+            reversedKeywords: "과거에 얽매임, 떠나지 못하는 미련, 잘못된 관계의 지속",
+            categories: ["연애 / 애정운", "취업 / 진로 / 이직", "멘탈 / 마음 치유"]
+        },
+        {
+            id: "C-Kn",
+            name: "컵의 기사",
+            nameEn: "Knight of Cups",
+            icon: "💌",
+            uprightKeywords: "로맨틱한 프러포즈, 매력적인 유혹, 감미로운 제안, 낭만적 설렘",
+            reversedKeywords: "사기성 제안, 마음 없는 겉치레 칭찬, 우유부단, 변덕스러운 감정",
+            categories: ["연애 / 애정운", "인간관계 / 대인운"]
+        },
+        {
+            id: "W5",
+            name: "지팡이 5",
+            nameEn: "Five of Wands",
+            icon: "🥊",
+            uprightKeywords: "치열한 밥그릇 싸움, 소모적인 경쟁, 사공이 많은 혼란, 의견 충돌",
+            reversedKeywords: "경쟁의 종료, 타협과 합의 도출, 불필요한 마찰 회피",
+            categories: ["취업 / 진로 / 이직", "학업 / 시험 / 합격", "인간관계 / 대인운"]
+        },
+        {
+            id: "W7",
+            name: "지팡이 7",
+            nameEn: "Seven of Wands",
+            icon: "🛡️",
+            uprightKeywords: "고립무원의 방어전, 사방에서 몰려드는 압박, 벅찬 저항, 기득권 지키기",
+            reversedKeywords: "압박에 굴복, 포기, 무거운 부담감, 방어선 붕괴",
+            categories: ["취업 / 진로 / 이직", "학업 / 시험 / 합격", "재물 / 금전 / 사업"]
+        },
+        {
+            id: "W9",
+            name: "지팡이 9",
+            nameEn: "Nine of Wands",
+            icon: "🤕",
+            uprightKeywords: "부상투혼, 극도의 경계심, 만성 피로와 스트레스, 마지막 방어선",
+            reversedKeywords: "지쳐 쓰러짐, 방심으로 인한 손실, 만성 번아웃",
+            categories: ["멘탈 / 마음 치유", "취업 / 진로 / 이직", "학업 / 시험 / 합격"]
+        },
+        {
+            id: "W10",
+            name: "지팡이 10",
+            nameEn: "Ten of Wands",
+            icon: "🏋️",
+            uprightKeywords: "과도한 중압감, 감당할 수 없는 일거리, 어깨를 짓누르는 짐, 탈진 직전",
+            reversedKeywords: "짐 내려놓기, 위임과 분담, 과로 탈피, 무거운 책임 정리",
+            categories: ["취업 / 진로 / 이직", "학업 / 시험 / 합격", "종합 운세 / 사주"]
+        },
+        {
+            id: "W2",
+            name: "지팡이 2",
+            nameEn: "Two of Wands",
+            icon: "🧭",
+            uprightKeywords: "기로에 선 갈등, 미지의 세계에 대한 두려움, 계획 수립과 고민",
+            reversedKeywords: "우물 안 개구리, 기회 놓침, 섣부른 확장으로 인한 손실",
+            categories: ["취업 / 진로 / 이직", "재물 / 금전 / 사업", "종합 운세 / 사주"]
+        },
+        {
+            id: "P4",
+            name: "펜타클 4",
+            nameEn: "Four of Pentacles",
+            icon: "🔒",
+            uprightKeywords: "지나친 인색함, 돈에 대한 집착, 자금 경색, 손실 공포로 인한 정체",
+            reversedKeywords: "과소비로 인한 누수, 충동 지출, 재정 통제력 상실",
+            categories: ["재물 / 금전 / 사업", "연애 / 애정운"]
+        },
+        {
+            id: "P5",
+            name: "펜타클 5",
+            nameEn: "Five of Pentacles",
+            icon: "❄️",
+            uprightKeywords: "눈보라 속 빈곤, 재정적 혹한기, 경제적 파탄, 도움받지 못하는 외로움",
+            reversedKeywords: "재정적 위기 극복의 서광, 구호의 손길, 건강 회복",
+            categories: ["재물 / 금전 / 사업", "멘탈 / 마음 치유", "종합 운세 / 사주"]
+        },
+        {
+            id: "P7",
+            name: "펜타클 7",
+            nameEn: "Seven of Pentacles",
+            icon: "🌱",
+            uprightKeywords: "기대에 못 미치는 수확, 지루한 정체기, 헛수고의 불안감, 회의감",
+            reversedKeywords: "투자 손실 우려, 성급한 포기, 잘못된 방향으로의 노력 낭비",
+            categories: ["재물 / 금전 / 사업", "학업 / 시험 / 합격", "취업 / 진로 / 이직"]
+        },
+        {
+            id: "P2",
+            name: "펜타클 2",
+            nameEn: "Two of Pentacles",
+            icon: "🤹",
+            uprightKeywords: "위태로운 줄타기, 자금 돌려막기, 불안정한 양다리, 과부하 상태",
+            reversedKeywords: "자금줄 붕괴, 균형 상실, 파산 위기, 무책임한 회피",
+            categories: ["재물 / 금전 / 사업", "연애 / 애정운", "취업 / 진로 / 이직"]
         }
     ];
 
