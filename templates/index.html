@@ -86,8 +86,8 @@
                         <input type="text" id="userName" name="userName" placeholder="예: 서연, 도윤" required>
                     </div>
                     <div class="form-group half">
-                        <label for="birthInfo">생년월일 및 사주 정보 (선택)</label>
-                        <input type="text" id="birthInfo" name="birthInfo" placeholder="예: 1998년 5월 12일 오전 8시 (양력)">
+                        <label for="birthInfo">생년월일 및 태어난 시 (사주 명리학 분석) <span class="required">*</span></label>
+                        <input type="text" id="birthInfo" name="birthInfo" placeholder="예: 1998년 5월 12일 오후 2시 (양력/음력)" required>
                     </div>
                 </div>
 
@@ -214,6 +214,32 @@
                         <h2>🔮 AI 타로 & 사주 심층 리딩 결과</h2>
                     </div>
                     <span class="result-theme-badge" id="resultThemeBadge">💖 연애 / 애정운</span>
+                </div>
+
+                <!-- 사주 명리학 분석 요약 배너 -->
+                <div id="sajuProfileCard" class="saju-profile-card hidden">
+                    <div class="saju-card-header">
+                        <span class="saju-badge">☯️ 사주 명리학(四柱命理) 원국 분석</span>
+                        <span class="saju-user-name" id="sajuUserName"></span>
+                    </div>
+                    <div class="saju-details-grid">
+                        <div class="saju-detail-item">
+                            <span class="saju-detail-label">사주 년주</span>
+                            <span class="saju-detail-val" id="sajuGanji"></span>
+                        </div>
+                        <div class="saju-detail-item">
+                            <span class="saju-detail-label">십이지 띠</span>
+                            <span class="saju-detail-val" id="sajuAnimal"></span>
+                        </div>
+                        <div class="saju-detail-item">
+                            <span class="saju-detail-label">본성 오행</span>
+                            <span class="saju-detail-val" id="sajuElement"></span>
+                        </div>
+                        <div class="saju-detail-item">
+                            <span class="saju-detail-label">출생 계절</span>
+                            <span class="saju-detail-val" id="sajuSeason"></span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- 선택된 3장의 카드 요약 배너 -->

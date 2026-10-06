@@ -767,6 +767,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const birthInfo = birthInfoInput.value.trim();
+        if (!birthInfo) {
+            showError(step1Error, '사주와 타로의 조화로운 분석을 위해 생년월일(및 태어난 시)을 입력해 주세요.', birthInfoInput);
+            return;
+        }
+
         if (questions.length === 0) {
             showError(step1Error, '최소 1개 이상의 질문을 작성해 주세요.', inputs[0]);
             return;
@@ -1067,6 +1073,19 @@ document.addEventListener('DOMContentLoaded', () => {
             // 결과 렌더링
             generatedMarkdown = data.result;
             resultThemeBadge.textContent = currentCategory;
+
+            // 사주 프로필 요약 카드 렌더링
+            const sajuProfileCard = document.getElementById('sajuProfileCard');
+            if (data.saju) {
+                document.getElementById('sajuUserName').textContent = `${userName}님의 명리학 원국`;
+                document.getElementById('sajuGanji').textContent = data.saju.ganji_year;
+                document.getElementById('sajuAnimal').textContent = data.saju.animal;
+                document.getElementById('sajuElement').textContent = data.saju.year_element;
+                document.getElementById('sajuSeason').textContent = `${data.saju.season} [${data.saju.season_element}]`;
+                sajuProfileCard.classList.remove('hidden');
+            } else {
+                sajuProfileCard.classList.add('hidden');
+            }
 
             // 상단 선택 카드 3장 요약 배너 렌더링
             renderChosenCardsBanner(chosenCardsPayload);
