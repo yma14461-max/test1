@@ -25,6 +25,13 @@ def get_serper_key():
         key = os.getenv("SERPER_API_KEY")
     return key
 
+def get_salon_pin():
+    pin = os.getenv("SALON_PIN")
+    if not pin and ENV_PATH.exists():
+        load_dotenv(dotenv_path=ENV_PATH, override=True)
+        pin = os.getenv("SALON_PIN")
+    return pin or "0030"
+
 # 2. 로깅 설정
 logging.basicConfig(
     level=logging.INFO,
@@ -130,6 +137,16 @@ def index():
     """메인 페이지 렌더링"""
     return render_template("index.html")
 
+@app.route("/api/verify-pin", methods=["POST"])
+def verify_pin():
+    """비밀번호 검증 엔드포인트"""
+    data = request.get_json() or {}
+    pin = str(data.get("pin", "")).strip()
+    correct_pin = get_salon_pin()
+    if pin == correct_pin:
+        return jsonify({"valid": True})
+    return jsonify({"valid": False, "error": "비밀번호가 일치하지 않습니다."}), 401
+
 @app.route("/generate", methods=["POST"])
 def generate():
     """타로 6장 스토리텔링 & 사주 맞춤 조언 분석 요청 처리"""
@@ -153,8 +170,9 @@ def generate():
         logging.info(f"[요청 수신] 사용자: {user_name}, 묶음: {bundle_name}({stone_name}), 카테고리: {category}, 질문 수: {len(questions)}, 카드 수: {len(selected_cards)}")
 
         # 비밀번호 인증 검증 (0030)
-        access_pin = data.get("pin", "").strip()
-        if access_pin != "0030":
+        correct_pin = get_salon_pin()
+        access_pin = str(data.get("pin", "")).strip()
+        if access_pin != correct_pin:
             return jsonify({"error": "비밀번호 인증이 필요합니다. 올바른 4자리 비밀번호를 입력해 주세요."}), 403
 
         # 백엔드 입력 검증

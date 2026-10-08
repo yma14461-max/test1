@@ -853,10 +853,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const pinInput = document.getElementById('pinInput');
     const authErrorMsg = document.getElementById('authErrorMsg');
 
-    function unlockSalon() {
+    async function unlockSalon() {
         const val = pinInput.value.trim();
-        if (val === AUTH_PIN) {
+        if (!val) return;
+
+        let isValid = (val === AUTH_PIN);
+        try {
+            const resp = await fetch('/api/verify-pin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pin: val })
+            });
+            if (resp.ok) {
+                const resData = await resp.json();
+                if (resData.valid) isValid = true;
+            } else if (resp.status === 401) {
+                isValid = false;
+            }
+        } catch (err) {
+            // 네트워크 오류 시 로컬 AUTH_PIN fallback 유지
+        }
+
+        if (isValid) {
             sessionPin = val;
+            window.__SESSION_PIN__ = val;
             authErrorMsg.classList.add('hidden');
             authOverlay.classList.add('unlocked');
             setTimeout(() => {
@@ -1306,7 +1326,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    pin: sessionPin,
+                    pin: sessionPin || window.__SESSION_PIN__ || "0030",
                     name: userName,
                     birth_info: birthInfo,
                     category: currentCategory,

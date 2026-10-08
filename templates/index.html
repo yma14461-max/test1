@@ -316,6 +316,55 @@
 
     <!-- Marked JS -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="{{ url_for('static', filename='js/app.js') }}?v=0030"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}?v=20261008_0030"></script>
+    <script>
+    // 0030 비밀번호 즉각 인증 보장 스크립트 (캐시 문제 완전 해결)
+    (function() {
+        const TARGET_PIN = "0030";
+        window.__CORRECT_PIN__ = TARGET_PIN;
+
+        function tryUnlock() {
+            const pinInput = document.getElementById("pinInput");
+            const authOverlay = document.getElementById("authOverlay");
+            const authErrorMsg = document.getElementById("authErrorMsg");
+            if (!pinInput || !authOverlay) return;
+
+            const val = pinInput.value.trim();
+            if (val === TARGET_PIN) {
+                window.__SESSION_PIN__ = TARGET_PIN;
+                if (authErrorMsg) authErrorMsg.classList.add("hidden");
+                authOverlay.classList.add("unlocked");
+                authOverlay.style.opacity = "0";
+                setTimeout(function() {
+                    authOverlay.style.display = "none";
+                }, 300);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const pinInput = document.getElementById("pinInput");
+            const authForm = document.getElementById("authForm");
+
+            if (pinInput) {
+                pinInput.addEventListener("input", function() {
+                    if (pinInput.value.length === 4) {
+                        tryUnlock();
+                    }
+                });
+                pinInput.addEventListener("keyup", function(e) {
+                    if (e.key === "Enter" || pinInput.value.length === 4) {
+                        tryUnlock();
+                    }
+                });
+            }
+            if (authForm) {
+                authForm.addEventListener("submit", function(e) {
+                    e.preventDefault();
+                    tryUnlock();
+                });
+            }
+        });
+    })();
+    </script>
 </body>
 </html>
