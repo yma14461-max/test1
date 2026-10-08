@@ -152,9 +152,9 @@ def generate():
 
         logging.info(f"[요청 수신] 사용자: {user_name}, 묶음: {bundle_name}({stone_name}), 카테고리: {category}, 질문 수: {len(questions)}, 카드 수: {len(selected_cards)}")
 
-        # 비밀번호 인증 검증 (5867)
+        # 비밀번호 인증 검증 (0030)
         access_pin = data.get("pin", "").strip()
-        if access_pin != "5867":
+        if access_pin != "0030":
             return jsonify({"error": "비밀번호 인증이 필요합니다. 올바른 4자리 비밀번호를 입력해 주세요."}), 403
 
         # 백엔드 입력 검증

@@ -843,9 +843,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedBundleIndex = null;
 
     // ==========================================
-    // 6. 비밀번호 인증 게이트웨이 (5867, 새로고침 시 항상 재입력)
+    // 6. 비밀번호 인증 게이트웨이 (0030, 새로고침 시 항상 재입력)
     // ==========================================
-    const AUTH_PIN = "5867";
+    const AUTH_PIN = "0030";
     let sessionPin = "";
 
     const authOverlay = document.getElementById('authOverlay');
