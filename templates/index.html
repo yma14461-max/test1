@@ -16,8 +16,8 @@
             </div>
             <h1>🌙 달빛 타로 & 운세 살롱</h1>
             <p class="salon-subtitle">
-                "마음속 깊이 품은 질문을 전해주시면, 그 기운이 닿는 <strong>6장의 운명 카드</strong>를 정갈히 펼쳐드립니다.<br>
-                당신의 무의식이 이끄는 <strong>3장의 카드</strong>를 직관으로 골라 과거, 현재, 미래의 진실된 메시지를 만나보세요."
+                "78장의 정통 타로 덱을 카지노 셔플로 고르게 섞은 뒤, 6장씩 4개의 운명 묶음으로 나눕니다.<br>
+                마음이 강하게 이끌리는 <strong>원석(스톤) 묶음 1가지</strong>를 선택하시면, 6장의 카드가 빚어내는 자연스러운 서사와 맞춤 조언을 전해드립니다."
             </p>
         </header>
 
@@ -86,7 +86,7 @@
                         <input type="text" id="userName" name="userName" placeholder="예: 서연, 도윤" required>
                     </div>
                     <div class="form-group half">
-                        <label for="birthInfo">생년월일 및 태어난 시 (사주 명리학 분석) <span class="required">*</span></label>
+                        <label for="birthInfo">생년월일 및 태어난 시 (마지막 조언용 사주 분석) <span class="required">*</span></label>
                         <input type="text" id="birthInfo" name="birthInfo" placeholder="예: 1998년 5월 12일 오후 2시 (양력/음력)" required>
                     </div>
                 </div>
@@ -139,20 +139,20 @@
 
                 <!-- Step 1 완료 버튼 -->
                 <button type="button" id="proceedToTarotBtn" class="btn-primary gold-shine">
-                    🔮 질문 확인 및 맞춤 타로 카드 6장 펼치기
+                    🎰 78장 타로 카지노 셔플 & 4개 운명 묶음 나누기
                 </button>
             </section>
 
             <!-- ==============================================
-                 STEP 2: 질문 확인 & 타로 카드 6장 중 3장 선택
+                 STEP 2: 카지노 셔플 & 원석 묶음 선택
                  ============================================== -->
             <section id="step2Section" class="step-card mystic-card hidden">
                 <div class="step-badge-wrap">
-                    <div class="step-badge">STEP 2 · 운명의 카드 선택</div>
+                    <div class="step-badge">STEP 2 · 원석 묶음 선택 (4 묶음 중 1개)</div>
                     <button type="button" id="backToStep1Btn" class="btn-text">✏️ 질문 수정하기</button>
                 </div>
 
-                <h2 class="step-title">운명의 타로 카드 6장 중 3장 선택</h2>
+                <h2 class="step-title">카지노 셔플 & 운명의 원석 묶음 선택</h2>
                 
                 <!-- 질문 요약 확인 카드 -->
                 <div class="question-summary-card">
@@ -163,22 +163,44 @@
                     <ul class="summary-questions-list" id="summaryQuestionsList"></ul>
                 </div>
 
-                <!-- 선택 상태 인디케이터 -->
-                <div class="selection-status-box">
-                    <div class="status-indicator">
-                        <span class="status-icon">✨</span>
-                        <span id="selectionStatusText">마음을 집중하고 <strong>첫 번째 카드(1. 과거 · 원인)</strong>를 선택해 주세요. (0 / 3)</span>
+                <!-- 1. 카지노 셔플 애니메이션 영역 -->
+                <div id="casinoShuffleArea" class="casino-shuffle-area">
+                    <div class="shuffle-animation-stage">
+                        <div class="shuffle-deck deck-left"></div>
+                        <div class="shuffle-deck deck-center"></div>
+                        <div class="shuffle-deck deck-right"></div>
+                        <div class="shuffle-sparkles">✨ ✦ 🎴 ✦ ✨</div>
                     </div>
-                    <div class="selection-badges" id="selectionBadges">
-                        <span class="slot-badge slot-1" id="slotBadge1">1. 과거 · 원인</span>
-                        <span class="slot-badge slot-2" id="slotBadge2">2. 현재 · 상황</span>
-                        <span class="slot-badge slot-3" id="slotBadge3">3. 미래 · 조언</span>
+                    <div class="shuffle-label" id="shuffleStatusLabel">78장의 카드가 카지노 리플 셔플로 뒤섞이고 있습니다...</div>
+                </div>
+
+                <!-- 2. 4개의 묶음 (원석 스톤 매칭) 컨테이너 -->
+                <div id="bundlesContainerWrap" class="bundles-container-wrap">
+                    <div class="selection-guide-banner">
+                        <span class="guide-icon">💎</span>
+                        <span class="guide-text">
+                            마음을 가라앉히고 <strong>시선이 가장 머무는 원석(스톤)이나 묶음 번호</strong> 1가지를 직관으로 선택해 주세요.
+                        </span>
+                    </div>
+
+                    <!-- 4개 묶음 그리드 -->
+                    <div id="fourBundlesGrid" class="four-bundles-grid">
+                        <!-- JS에서 동적 렌더링 -->
                     </div>
                 </div>
 
-                <!-- 6장의 타로 카드 컨테이너 -->
-                <div id="sixTarotCardsGrid" class="six-tarot-grid">
-                    <!-- JS에서 질문과 테마에 맞는 6장의 카드 동적 렌더링 -->
+                <!-- 3. 선택된 묶음의 6장 카드 펼침 영역 -->
+                <div id="revealedSpreadSection" class="revealed-spread-section hidden">
+                    <div class="spread-header-box">
+                        <div class="spread-stone-badge" id="chosenStoneHeaderBadge">🌸 1번 묶음: 로즈쿼츠 선택됨</div>
+                        <h3 class="spread-headline">✨ 선택된 6장의 운명 카드가 순서대로 펼쳐졌습니다</h3>
+                        <p class="spread-subtext">각 카드는 고민의 시작부터 미래의 귀결까지 유기적으로 이어지는 6단계 스토리텔링을 이룹니다.</p>
+                    </div>
+
+                    <!-- 6장 카드 그리드 -->
+                    <div id="sixSpreadGrid" class="six-spread-grid">
+                        <!-- JS에서 6장 동적 렌더링 -->
+                    </div>
                 </div>
 
                 <!-- Step 2 에러 박스 -->
@@ -186,9 +208,9 @@
 
                 <!-- Step 2 액션 버튼 -->
                 <div class="step2-actions">
-                    <button type="button" id="reshuffleBtn" class="btn-secondary-action">🔀 다른 카드 6장으로 다시 섞기</button>
+                    <button type="button" id="reshuffleBtn" class="btn-secondary-action">🎰 카지노 셔플 다시 돌리기</button>
                     <button type="button" id="submitReadingBtn" class="btn-primary disabled-btn gold-shine" disabled>
-                        ✨ 선택한 3장으로 최종 운세 리딩 보기 (3장 필요)
+                        ✨ 묶음을 선택해 주세요 (1개 선택 필요)
                     </button>
                 </div>
             </section>
@@ -200,8 +222,8 @@
                         <span class="loader-symbol">🔮</span>
                     </div>
                 </div>
-                <h3 class="loading-title">타로 마스터가 카드의 상징과 운의 흐름을 읽고 있습니다...</h3>
-                <p class="loading-sub" id="loadingText">선택하신 3장의 카드를 질문과 엮어 심도 깊은 리딩을 완성하고 있습니다.</p>
+                <h3 class="loading-title">타로 마스터가 6장 카드의 유기적인 서사를 읽어내고 있습니다...</h3>
+                <p class="loading-sub" id="loadingText">작위적인 반전 없이 현실과 내면의 거울을 비추어 깊이 있는 해답을 빚어내고 있습니다.</p>
             </div>
 
             <!-- ==============================================
@@ -211,15 +233,30 @@
                 <div class="result-header">
                     <div class="result-title-group">
                         <span class="salon-cert">🌙 달빛 타로 살롱 정식 감정서</span>
-                        <h2>🔮 AI 타로 & 사주 심층 리딩 결과</h2>
+                        <h2>🔮 AI 타로 심층 리딩 & 사주 맞춤 조언</h2>
                     </div>
-                    <span class="result-theme-badge" id="resultThemeBadge">💖 연애 / 애정운</span>
+                    <div class="result-badges-group">
+                        <span class="result-bundle-badge" id="resultBundleBadge">🌸 로즈쿼츠 묶음</span>
+                        <span class="result-theme-badge" id="resultThemeBadge">💖 연애 / 애정운</span>
+                    </div>
                 </div>
 
-                <!-- 사주 명리학 분석 요약 배너 -->
+                <!-- 선택된 6장의 카드 요약 배너 -->
+                <div class="chosen-cards-summary">
+                    <div class="chosen-summary-header">
+                        <span class="star-decor">✦</span>
+                        <h3 class="chosen-title">당신의 무의식이 이끈 6장의 운명 카드 스토리</h3>
+                        <span class="star-decor">✦</span>
+                    </div>
+                    <div class="chosen-cards-grid" id="chosenCardsGrid">
+                        <!-- JS에서 선택한 6장의 카드 요약 표시 -->
+                    </div>
+                </div>
+
+                <!-- 사주 명리학 분석 요약 배너 (마지막 조언용) -->
                 <div id="sajuProfileCard" class="saju-profile-card hidden">
                     <div class="saju-card-header">
-                        <span class="saju-badge">☯️ 사주 명리학(四柱命理) 원국 분석</span>
+                        <span class="saju-badge">☯️ 상담자 사주 명리(四柱命理) 원국 데이터</span>
                         <span class="saju-user-name" id="sajuUserName"></span>
                     </div>
                     <div class="saju-details-grid">
@@ -239,18 +276,6 @@
                             <span class="saju-detail-label">출생 계절</span>
                             <span class="saju-detail-val" id="sajuSeason"></span>
                         </div>
-                    </div>
-                </div>
-
-                <!-- 선택된 3장의 카드 요약 배너 -->
-                <div class="chosen-cards-summary">
-                    <div class="chosen-summary-header">
-                        <span class="star-decor">✦</span>
-                        <h3 class="chosen-title">당신의 무의식이 이끈 3장의 운명 카드</h3>
-                        <span class="star-decor">✦</span>
-                    </div>
-                    <div class="chosen-cards-grid" id="chosenCardsGrid">
-                        <!-- JS에서 선택한 3장의 카드 요약 표시 -->
                     </div>
                 </div>
 

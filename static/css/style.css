@@ -509,95 +509,428 @@ button {
     line-height: 1.5;
 }
 
-/* 선택 상태 안내 (높이 고정으로 레이아웃 흔들림 방지) */
-.selection-status-box {
-    background: #15102e;
-    border: 1px solid #4a3e75;
-    border-radius: 14px;
-    padding: 14px 16px;
-    margin-bottom: 22px;
+/* ==============================================
+   카지노 셔플 & 운명의 원석 묶음 (Step 2)
+   ============================================== */
+.casino-shuffle-area {
+    background: radial-gradient(circle at center, #231846 0%, #110c28 100%);
+    border: 1px dashed rgba(212, 175, 55, 0.4);
+    border-radius: 16px;
+    padding: 18px;
     text-align: center;
-    min-height: 88px;
+    margin-bottom: 22px;
+    position: relative;
+    overflow: hidden;
+}
+
+.shuffle-animation-stage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    height: 90px;
+    position: relative;
+}
+
+.shuffle-deck {
+    width: 54px;
+    height: 78px;
+    background: linear-gradient(135deg, #372363, #1e1338);
+    border: 2px solid #ca8a04;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+    transition: transform 0.4s ease;
+}
+
+.deck-left {
+    transform: rotate(-10deg) translateX(10px);
+}
+.deck-center {
+    transform: rotate(0deg) scale(1.05);
+    z-index: 2;
+    border-color: #facc15;
+}
+.deck-right {
+    transform: rotate(10deg) translateX(-10px);
+}
+
+.casino-shuffle-area.shuffling .deck-left {
+    animation: shuffleRiffleLeft 0.5s infinite alternate ease-in-out;
+}
+.casino-shuffle-area.shuffling .deck-right {
+    animation: shuffleRiffleRight 0.5s infinite alternate ease-in-out;
+}
+.casino-shuffle-area.shuffling .deck-center {
+    animation: shuffleWash 0.6s infinite alternate ease-in-out;
+}
+
+@keyframes shuffleRiffleLeft {
+    0% { transform: rotate(-18deg) translateX(-25px); }
+    100% { transform: rotate(5deg) translateX(15px); }
+}
+@keyframes shuffleRiffleRight {
+    0% { transform: rotate(18deg) translateX(25px); }
+    100% { transform: rotate(-5deg) translateX(-15px); }
+}
+@keyframes shuffleWash {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.15) rotate(8deg); }
+    100% { transform: scale(1) rotate(-8deg); }
+}
+
+.shuffle-sparkles {
+    position: absolute;
+    font-size: 1.1rem;
+    color: #fde047;
+    animation: sparkleFloat 2s infinite ease-in-out;
+    pointer-events: none;
+}
+
+@keyframes sparkleFloat {
+    0% { transform: translateY(0); opacity: 0.6; }
+    50% { transform: translateY(-8px); opacity: 1; filter: drop-shadow(0 0 6px #facc15); }
+    100% { transform: translateY(0); opacity: 0.6; }
+}
+
+.shuffle-label {
+    font-size: 0.92rem;
+    color: #cbd5e1;
+    margin-top: 8px;
+}
+.shuffle-label strong {
+    color: #fde047;
+}
+
+.pulse-text {
+    animation: pulseGlow 1.5s infinite alternate;
+}
+
+@keyframes pulseGlow {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; color: #fde047; }
+}
+
+/* 4묶음 가이드 배너 */
+.selection-guide-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(49, 36, 89, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 0.94rem;
+    color: #e2e8f0;
+}
+.selection-guide-banner strong {
+    color: #fef08a;
+}
+
+/* 4개 묶음 그리드 */
+.four-bundles-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 26px;
+}
+
+@media (max-width: 840px) {
+    .four-bundles-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+}
+@media (max-width: 480px) {
+    .four-bundles-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.bundle-card {
+    background: linear-gradient(170deg, #1d163a 0%, #120e26 100%);
+    border: 2px solid #4a3b75;
+    border-radius: 18px;
+    padding: 20px 14px 16px 14px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+
+.bundle-card:hover {
+    transform: translateY(-6px);
+    border-color: #a855f7;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.6), 0 0 20px rgba(168, 85, 247, 0.3);
+}
+
+.bundle-card.selected {
+    border-color: #facc15;
+    background: linear-gradient(170deg, #2b1f54 0%, #191238 100%);
+    box-shadow: 0 12px 34px rgba(0,0,0,0.7), 0 0 28px rgba(250, 204, 21, 0.5);
+    transform: translateY(-4px);
+}
+
+/* 3D 덱 스택 비주얼 */
+.bundle-deck-stack {
+    position: relative;
+    width: 96px;
+    height: 136px;
+    margin-bottom: 14px;
+}
+
+.deck-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 175, 55, 0.4);
     box-sizing: border-box;
 }
 
-.status-indicator {
-    font-size: 0.96rem;
-    color: #e2e8f0;
-    margin-bottom: 8px;
-    min-height: 24px;
+.deck-layer.layer-3 {
+    top: 6px;
+    left: 4px;
+    background: #171030;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
 }
-
-.status-icon {
-    font-size: 1.15rem;
-    color: #fde047;
-    margin-right: 6px;
+.deck-layer.layer-2 {
+    top: 3px;
+    left: 2px;
+    background: #201742;
 }
-
-.selection-badges {
+.deck-layer.layer-1 {
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle at center, #2e1d52 0%, #150d2b 100%);
+    border: 2px solid #6b539c;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 6px;
+}
+
+.bundle-card.selected .deck-layer.layer-1 {
+    border-color: #facc15;
+}
+
+.bundle-stone-holder {
+    position: relative;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px;
+    margin-top: 6px;
 }
 
-.slot-badge {
-    font-size: 0.78rem;
-    padding: 4px 12px;
-    border-radius: 16px;
-    background: #231b42;
-    color: #94a3b8;
-    border: 1px solid #433769;
-    transition: all 0.25s ease;
-    white-space: nowrap;
+.bundle-stone-glow {
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.8;
 }
 
-.slot-badge.active {
-    background: linear-gradient(135deg, #14532d, #166534);
-    color: #86efac;
-    border-color: #22c55e;
-    box-shadow: 0 0 12px rgba(34, 197, 94, 0.4);
+.bundle-stone-icon {
+    font-size: 2.2rem;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.8));
+    animation: stoneBob 3s infinite alternate ease-in-out;
+}
+
+@keyframes stoneBob {
+    0% { transform: translateY(0) scale(0.96); }
+    100% { transform: translateY(-4px) scale(1.05); }
+}
+
+.bundle-card-back-ornament {
+    text-align: center;
+}
+
+.bundle-rune {
+    font-size: 0.72rem;
+    color: #eab308;
+    display: block;
+    letter-spacing: 1.5px;
+}
+
+.bundle-card-count {
+    font-size: 0.68rem;
+    color: #cbd5e1;
     font-weight: 700;
 }
 
+.bundle-meta {
+    text-align: center;
+    width: 100%;
+}
+
+.bundle-num-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #fde047;
+    background: #392812;
+    border: 1px solid #ca8a04;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+
+.bundle-stone-name {
+    font-size: 1.05rem;
+    color: #ffffff;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.bundle-stone-desc {
+    font-size: 0.76rem;
+    color: #94a3b8;
+    line-height: 1.35;
+    margin-bottom: 12px;
+    min-height: 32px;
+}
+
+.btn-select-bundle {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    border-radius: 8px;
+    border: 1px solid #7c3aed;
+    background: rgba(124, 58, 237, 0.2);
+    color: #e2e8f0;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.bundle-card:hover .btn-select-bundle {
+    background: #7c3aed;
+    color: #ffffff;
+}
+
+.bundle-card.selected .btn-select-bundle {
+    background: #ca8a04;
+    border-color: #facc15;
+    color: #000000;
+    font-weight: 800;
+}
+
 /* ==============================================
-   6장의 타로 카드 그리드 (6장 3D 제자리 Flip)
+   선택된 묶음의 6장 펼침 섹션 (Revealed Spread)
    ============================================== */
-.six-tarot-grid {
+.revealed-spread-section {
+    background: #140e2b;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 18px;
+    padding: 24px 20px;
+    margin-bottom: 24px;
+    box-shadow: inset 0 0 25px rgba(0,0,0,0.5);
+    animation: fadeInSlide 0.5s ease-out;
+}
+
+@keyframes fadeInSlide {
+    0% { opacity: 0; transform: translateY(12px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.spread-header-box {
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+.spread-stone-badge {
+    display: inline-block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #fef08a;
+    background: #3a275e;
+    border: 1px solid #ca8a04;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+}
+
+.spread-headline {
+    font-size: 1.25rem;
+    color: #ffffff;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.spread-subtext {
+    font-size: 0.84rem;
+    color: #94a3b8;
+}
+
+.six-spread-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
-    margin-bottom: 24px;
-    align-items: stretch;
 }
 
-@media (max-width: 900px) {
-    .six-tarot-grid {
+@media (max-width: 960px) {
+    .six-spread-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;
     }
 }
-
-@media (max-width: 540px) {
-    .six-tarot-grid {
+@media (max-width: 560px) {
+    .six-spread-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
     }
 }
 
-.six-tarot-card {
-    perspective: 1000px;
-    height: 235px;
-    cursor: pointer;
-    position: relative;
-    transform: none !important;
+.spread-card-item {
+    display: flex;
+    flex-direction: column;
+    animation: cardPop 0.45s ease-out forwards;
 }
 
-.six-tarot-card:hover {
-    transform: none !important;
+@keyframes cardPop {
+    0% { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.spread-slot-header {
+    background: #251b47;
+    border: 1px solid #574685;
+    border-radius: 8px;
+    padding: 6px 8px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    color: #e2e8f0;
+    font-weight: 700;
+    line-height: 1.25;
+    min-height: 38px;
+}
+
+.slot-num-icon {
+    font-size: 0.95rem;
+}
+
+.slot-tag-title {
+    font-size: 0.72rem;
+    color: #fef08a;
+}
+
+.spread-card-3d {
+    perspective: 1000px;
+    height: 240px;
+    position: relative;
+    width: 100%;
 }
 
 .card-inner-3d {
@@ -921,6 +1254,24 @@ button {
     font-size: 1.5rem;
 }
 
+.result-badges-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.result-bundle-badge {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #fde047;
+    background: #372459;
+    border: 1px solid #ca8a04;
+    padding: 5px 14px;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
 .result-theme-badge {
     font-size: 0.82rem;
     font-weight: 700;
@@ -932,7 +1283,7 @@ button {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* 3장 선택 카드 요약 배너 */
+/* 6장 선택 카드 요약 배너 */
 .chosen-cards-summary {
     background: #100b24;
     border: 1px solid rgba(212, 175, 55, 0.3);
@@ -961,13 +1312,21 @@ button {
 
 .chosen-cards-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
     .chosen-cards-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+}
+
+@media (max-width: 560px) {
+    .chosen-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
     }
 }
 
