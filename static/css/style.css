@@ -1479,3 +1479,157 @@ button {
 .hidden {
     display: none !important;
 }
+
+/* ==============================================
+   비밀번호 잠금 게이트웨이 (Auth Overlay)
+   ============================================== */
+.auth-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(ellipse at center, rgba(30, 22, 66, 0.98) 0%, rgba(13, 9, 31, 0.99) 100%);
+    backdrop-filter: blur(24px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.auth-overlay.unlocked {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.auth-card {
+    max-width: 420px;
+    width: 100%;
+    background: linear-gradient(175deg, #24194c 0%, #130d2b 100%);
+    border: 2px solid #ca8a04;
+    border-radius: 24px;
+    padding: 38px 28px 30px 28px;
+    text-align: center;
+    box-shadow: 
+        0 24px 70px rgba(0, 0, 0, 0.8),
+        0 0 35px rgba(250, 204, 21, 0.25);
+    position: relative;
+    animation: authPop 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes authPop {
+    0% { transform: scale(0.92); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.auth-icon-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.auth-lock-icon {
+    font-size: 2.8rem;
+    filter: drop-shadow(0 0 12px rgba(250, 204, 21, 0.7));
+    animation: lockFloat 2.5s infinite alternate ease-in-out;
+}
+
+@keyframes lockFloat {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-6px); }
+}
+
+.auth-moon-symbol {
+    font-size: 0.76rem;
+    color: #eab308;
+    letter-spacing: 3px;
+}
+
+.auth-title {
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: #fef08a;
+    margin-bottom: 8px;
+    text-shadow: 0 0 14px rgba(254, 240, 138, 0.4);
+}
+
+.auth-desc {
+    font-size: 0.88rem;
+    color: #cbd5e1;
+    margin-bottom: 22px;
+    line-height: 1.5;
+}
+
+.auth-desc strong {
+    color: #fde047;
+}
+
+.pin-input-wrap {
+    margin-bottom: 14px;
+}
+
+.pin-input {
+    width: 100%;
+    max-width: 200px;
+    height: 56px;
+    background: #0d081f;
+    border: 2px solid #ca8a04;
+    border-radius: 14px;
+    color: #fef08a;
+    font-size: 2rem;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: 16px;
+    padding-left: 16px;
+    box-sizing: border-box;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.7);
+    transition: all 0.25s ease;
+}
+
+.pin-input:focus {
+    outline: none;
+    border-color: #facc15;
+    box-shadow: 0 0 20px rgba(250, 204, 21, 0.6), inset 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.pin-input.shake {
+    animation: pinShake 0.45s ease;
+    border-color: #ef4444;
+}
+
+@keyframes pinShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-10px); }
+    40%, 80% { transform: translateX(10px); }
+}
+
+.auth-error-msg {
+    color: #fca5a5;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid #ef4444;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    padding: 6px 12px;
+    margin-bottom: 14px;
+}
+
+.auth-submit-btn {
+    width: 100%;
+    padding: 13px;
+    font-size: 1rem;
+    margin-bottom: 16px;
+}
+
+.auth-hint-text {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    line-height: 1.4;
+}

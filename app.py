@@ -152,6 +152,11 @@ def generate():
 
         logging.info(f"[요청 수신] 사용자: {user_name}, 묶음: {bundle_name}({stone_name}), 카테고리: {category}, 질문 수: {len(questions)}, 카드 수: {len(selected_cards)}")
 
+        # 비밀번호 인증 검증 (5867)
+        access_pin = data.get("pin", "").strip()
+        if access_pin != "5867":
+            return jsonify({"error": "비밀번호 인증이 필요합니다. 올바른 4자리 비밀번호를 입력해 주세요."}), 403
+
         # 백엔드 입력 검증
         if not user_name:
             return jsonify({"error": "성함 또는 닉네임을 입력해 주세요."}), 400
@@ -204,7 +209,7 @@ def generate():
         questions_formatted = "\n".join([f"Q{idx+1}. {q}" for idx, q in enumerate(questions)])
         
         system_instruction = f"""
-당신은 오랜 세월 수많은 사람들의 마음을 치유하고 운명의 이정표를 짚어온 최고 권위의 정통 타로 마스터입니다.
+당신은 오랜 세월 수많은 사람들의 마음을 치유하고 운명의 이정표를 짚어온 '경도의 달빛운세 타로'의 최고 권위 정통 타로 마스터입니다.
 선택된 운세 테마: [{category}]
 상담자가 선택한 원석 묶음: [{bundle_name} - {stone_name} ({stone_meaning})]
 답변 톤앤매너: {tone} 말투로 작성하세요.

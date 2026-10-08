@@ -843,7 +843,53 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedBundleIndex = null;
 
     // ==========================================
-    // 6. DOM 요소 캐싱
+    // 6. 비밀번호 인증 게이트웨이 (5867, 새로고침 시 항상 재입력)
+    // ==========================================
+    const AUTH_PIN = "5867";
+    let sessionPin = "";
+
+    const authOverlay = document.getElementById('authOverlay');
+    const authForm = document.getElementById('authForm');
+    const pinInput = document.getElementById('pinInput');
+    const authErrorMsg = document.getElementById('authErrorMsg');
+
+    function unlockSalon() {
+        const val = pinInput.value.trim();
+        if (val === AUTH_PIN) {
+            sessionPin = val;
+            authErrorMsg.classList.add('hidden');
+            authOverlay.classList.add('unlocked');
+            setTimeout(() => {
+                authOverlay.style.display = 'none';
+            }, 400);
+        } else {
+            authErrorMsg.textContent = '비밀번호가 일치하지 않습니다.';
+            authErrorMsg.classList.remove('hidden');
+            pinInput.classList.add('shake');
+            setTimeout(() => pinInput.classList.remove('shake'), 450);
+            pinInput.value = '';
+            pinInput.focus();
+        }
+    }
+
+    if (authForm) {
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            unlockSalon();
+        });
+    }
+
+    if (pinInput) {
+        pinInput.addEventListener('input', () => {
+            if (pinInput.value.length === 4) {
+                unlockSalon();
+            }
+        });
+        setTimeout(() => pinInput.focus(), 150);
+    }
+
+    // ==========================================
+    // 7. DOM 요소 캐싱
     // ==========================================
     // Step 1
     const step1Section = document.getElementById('step1Section');
@@ -1260,6 +1306,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    pin: sessionPin,
                     name: userName,
                     birth_info: birthInfo,
                     category: currentCategory,
